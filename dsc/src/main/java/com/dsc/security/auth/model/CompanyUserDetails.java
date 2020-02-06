@@ -13,7 +13,7 @@ public class CompanyUserDetails {
 	private String userFullName;
 	private String email;
 	private String password;
-	private Integer userMobileNum;
+	private Long userMobileNum;
 	private String userCountry;
 	private String userAddress;
 	private String role;
@@ -70,11 +70,11 @@ public class CompanyUserDetails {
 		this.password = password;
 	}
 
-	public Integer getUserMobileNum() {
+	public Long getUserMobileNum() {
 		return userMobileNum;
 	}
 
-	public void setUserMobileNum(Integer userMobileNum) {
+	public void setUserMobileNum(Long userMobileNum) {
 		this.userMobileNum = userMobileNum;
 	}
 

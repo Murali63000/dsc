@@ -17,7 +17,7 @@ public class RegisterCompany {
 	private String companyFullName;
 	private String companyAddress;
 	private String ownerFullName;
-	private Integer ownerMobileNum;
+	private Long ownerMobileNum;
 	private String ownerCountry;
 	private String password;
 	private boolean flag;
@@ -83,11 +83,11 @@ public class RegisterCompany {
 		this.ownerFullName = ownerFullName;
 	}
 
-	public Integer getOwnerMobileNum() {
+	public Long getOwnerMobileNum() {
 		return ownerMobileNum;
 	}
 
-	public void setOwnerMobileNum(Integer ownerMobileNum) {
+	public void setOwnerMobileNum(Long ownerMobileNum) {
 		this.ownerMobileNum = ownerMobileNum;
 	}
 

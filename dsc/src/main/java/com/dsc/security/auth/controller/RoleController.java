@@ -34,6 +34,12 @@ public class RoleController {
 				return new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
 			}
 
+			if (!regComReq.getTransactionType().equalsIgnoreCase("save") ) {
+				ErrorResponse error = new ErrorResponse();
+				error.setStatusCode("422");
+				error.setMessage("Transactiontype mismatch");
+				return new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
+			}
 			if ((regComReq.getRole().getRole() == null || regComReq.getRole().getRole().isEmpty())) {
 				ErrorResponse error = new ErrorResponse();
 				error.setStatusCode("422");

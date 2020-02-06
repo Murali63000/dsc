@@ -39,12 +39,18 @@ public class DistributorController {
 				error.setMessage("Invalid Request");
 				return new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
 			}
+			if (!regComReq.getTransactionType().equalsIgnoreCase("save") ) {
+				ErrorResponse error = new ErrorResponse();
+				error.setStatusCode("422");
+				error.setMessage("Transactiontype mismatch");
+				return new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
+			}
 
 			if ((distributorDetails.getEmail().isEmpty() || distributorDetails.getEmail() == null)
 					|| (distributorDetails.getPassword().isEmpty() || distributorDetails.getPassword() == null)
 					|| (distributorDetails.getCompanyRef().isEmpty() || distributorDetails.getCompanyRef() == null)
 					|| (distributorDetails.getDistFullName().isEmpty() || distributorDetails.getDistFullName() == null)
-					|| (distributorDetails.getDistMobileNum() == null || distributorDetails.getDistMobileNum() == 0)) {
+					|| (distributorDetails.getDistMobileNum() == null)) {
 				ErrorResponse error = new ErrorResponse();
 				error.setStatusCode("422");
 				error.setMessage("Invalid Request fields ");

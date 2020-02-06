@@ -45,7 +45,7 @@ public class RegisterCompanyController {
 
 	@Autowired
 	private RegisterCompnayRepository regComRepo;
-	
+
 	@PostMapping("/login")
 	public ResponseEntity<Object> userLogin(@RequestBody Login login) {
 
@@ -73,7 +73,7 @@ public class RegisterCompanyController {
 	}
 
 	@Secured({ "SUPER_ADMIN", "COMPANY_ADMIN" })
-	@PostMapping("/registerCompany")
+	@PostMapping("/registercompany")
 	public ResponseEntity<Object> setRegisterCompany(@RequestBody RegisterCompanyRequest regComReq,
 			HttpServletRequest request, HttpServletResponse response) {
 		RegisterCompany company = regComReq.getRegisterCompany();
@@ -87,12 +87,19 @@ public class RegisterCompanyController {
 				error.setMessage("Invalid Request");
 				return new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
 			}
+			if (!regComReq.getTransactionType().equalsIgnoreCase("save") ) {
+				ErrorResponse error = new ErrorResponse();
+				error.setStatusCode("422");
+				error.setMessage("Transactiontype mismatch");
+				return new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
+			}
 
 			if ((company.getEmail().isEmpty() || company.getEmail() == null)
 					|| (company.getPassword().isEmpty() || company.getPassword() == null)
 					|| (company.getCompanyFullName().isEmpty() || company.getCompanyFullName() == null)
 					|| (company.getOwnerFullName().isEmpty() || company.getOwnerFullName() == null)
-					|| company.getOwnerMobileNum() == null) {
+					|| company.getOwnerMobileNum() == null
+					|| (company.getOwnerCountry().isEmpty() || company.getOwnerCountry() == null)) {
 				ErrorResponse error = new ErrorResponse();
 				error.setStatusCode("422");
 				error.setMessage("Invalid Request fields ");

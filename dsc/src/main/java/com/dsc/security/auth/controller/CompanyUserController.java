@@ -33,18 +33,23 @@ public class CompanyUserController {
 		try {
 
 			if (regComReq.getCompanyUserDetails() == null || regComReq.getTransactionType().isEmpty()
-					|| regComReq.getTransactionType() == null) {
+					|| regComReq.getTransactionType() == null ) {
 				ErrorResponse error = new ErrorResponse();
 				error.setStatusCode("422");
 				error.setMessage("Invalid Request");
 				return new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
 			}
-
+			if (!regComReq.getTransactionType().equalsIgnoreCase("save") ) {
+				ErrorResponse error = new ErrorResponse();
+				error.setStatusCode("422");
+				error.setMessage("Transactiontype mismatch");
+				return new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
+			}
 			if ((compUserDetails.getEmail().isEmpty() || compUserDetails.getEmail() == null)
 					|| (compUserDetails.getPassword().isEmpty() || compUserDetails.getPassword() == null)
 					|| (compUserDetails.getCompanyRef().isEmpty() || compUserDetails.getCompanyRef() == null)
 					|| (compUserDetails.getUserFullName().isEmpty() || compUserDetails.getUserFullName() == null)
-					|| (compUserDetails.getUserMobileNum() == null || compUserDetails.getUserMobileNum() == 0)) {
+					|| (compUserDetails.getUserMobileNum() == null)) {
 				ErrorResponse error = new ErrorResponse();
 				error.setStatusCode("422");
 				error.setMessage("Invalid Request fields ");

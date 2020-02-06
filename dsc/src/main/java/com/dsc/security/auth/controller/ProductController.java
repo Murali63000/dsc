@@ -41,13 +41,18 @@ public class ProductController {
 				error.setMessage("Invalid Request");
 				return new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
 			}
-
+			if (!regComReq.getTransactionType().equalsIgnoreCase("save") ) {
+				ErrorResponse error = new ErrorResponse();
+				error.setStatusCode("422");
+				error.setMessage("Transactiontype mismatch");
+				return new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
+			}
 			if ((product.getProductName().isEmpty() || product.getProductName() == null)
 					|| (product.getProductRef().isEmpty() || product.getProductRef() == null)
 					|| (product.getProductBrand().isEmpty() || product.getProductBrand() == null)
 					|| (product.getProductModel().isEmpty() || product.getProductModel() == null)
 					|| (product.getCompanyRef().isEmpty() || product.getCompanyRef() == null)
-					|| (product.getUpcNum() == null || product.getUpcNum() == 0)) {
+					|| (product.getUpcNum() == null)) {
 				ErrorResponse error = new ErrorResponse();
 				error.setStatusCode("422");
 				error.setMessage("Invalid Request fields ");

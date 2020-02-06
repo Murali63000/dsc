@@ -41,17 +41,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		UserDetailsService userDetailsService = customUserDetails();
-		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-	}
-
-//	@Override
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//	@Autowired
+//	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 //		UserDetailsService userDetailsService = customUserDetails();
 //		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 //	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		UserDetailsService userDetailsService = customUserDetails();
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder()); 
+	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
